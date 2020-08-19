@@ -4,21 +4,25 @@ Team-030-Backend :rocket:
 
 #### Instructions:
 ##### General:
-* Create a branch off the ** develop ** branch and do not push directly to it (the ** develop ** branch)
+* Create a branch off the **develop** branch and do not push directly to it (the **develop** branch)
 * Always raise a PR against the ** develop ** branch and during each PR, please include comments or descriptions. A template is given below:
 
-> ** ABOUT PR **
+> **ABOUT PR**
+>
 > This PR gives users the ability to register as farmers or as customers/consumers.
-> ** RELEVANT FILES **
+>
+> **RELEVANT FILES**
+>
 > auth.js
-> ** ISSUE **
+> **ISSUE**
+>
 > $Issue_Number
 
 ##### Coding conventions:
 _We would deliberate on this as a team_
 
 ```js
-console.log("Let's work magic together. Wave your wands buddies");
+console.log("Let's work magic together. Wave your wands buddies and may the force be with us.");
 ```
 
 
