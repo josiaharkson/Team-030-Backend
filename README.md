@@ -1,7 +1,5 @@
 # Agro-Mart: Team-030-Backend *:rocket:*
 
-## ===================================
-
 ### Please read carefully. *Abeg na!*
 
 ### Instructions
