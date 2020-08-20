@@ -10,7 +10,7 @@
 -  Always raise a PR against the **develop** branch and during each PR, please include comments or descriptions. A template is given below:
 
 <!-- > **ABOUT PR**IST -->
->
+
 > This PR gives users the ability to register as farmers or as customers/consumers.
 >
 > **RELEVANT FILES**
