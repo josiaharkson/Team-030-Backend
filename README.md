@@ -4,9 +4,9 @@
 
 ### Instructions
 
-### General
+#### General
 
-- Create a branch off the **develop** branch and do not push directly to it (the **develop** branch)
+-  Create a branch off the **develop** branch and do not push directly to it (the **develop** branch)
 - Always raise a PR against the **develop** branch and during each PR, please include comments or descriptions. A template is given below:
 
 <!-- > **ABOUT PR**IST -->
