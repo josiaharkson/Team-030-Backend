@@ -2,8 +2,9 @@ import express from "express";
 import debug from "debug";
 import config from "./config";
 
-const app = express();
+let app = express();
 const port = parseInt(process.env.PORT || "3000");
+const log = debug("worker")
 
 app = config(app);
 
@@ -12,7 +13,7 @@ app = config(app);
 // })
 
 app.listen(port, () => {
- debug(`Server running on port ${port}`);
+ log(`Server running on port ${port}`);
 });
 
 export default app;

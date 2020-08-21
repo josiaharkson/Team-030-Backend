@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "set DEBUG=& babel-node src/index.js"
+    "start:windows": "set DEBUG=worker babel-node src/index.js",
+    "start:unix": "DEBUG=worker babel-node src/index"
   },
   "repository": {
     "type": "git",
