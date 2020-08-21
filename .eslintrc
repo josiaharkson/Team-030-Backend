@@ -4,8 +4,10 @@
   "es6": true,
   "mocha": true
  },
- "extends": "",
- "rules": {},
+ "extends": "airbnb-base",
+ "rules": {
+  "comma-dangle": "off"
+ },
  "parserOptions": {
   "sourceType": "module"
  }
