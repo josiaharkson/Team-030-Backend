@@ -2,7 +2,7 @@ import express from "express";
 import debug from "debug";
 import config from "./config";
 
-let app = express();
+const app = express();
 const port = parseInt(process.env.PORT || "3000", 10);
 
 app = config(app);
