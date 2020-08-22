@@ -1,3 +1,6 @@
+branches:
+ only:
+  - team-030-heroku-deploy
 language: node_js
 node_js:
  - "stable"
@@ -14,4 +17,12 @@ script:
  - npm run test:unix # Since Travis runs on a unix environment, it would run the test script meant for unix environments
 after_success:
  - echo "Test complete" # Would be replaced with script to run code coverage
-# A deploy stage would be set once we have set up with Heroku
+deploy:
+ provider:
+  - heroku
+ api_key:
+  secure: "------"
+ app:
+  - # app name would go here
+ on:
+  - team-030-heroku-deploy

@@ -13,6 +13,7 @@
     "lint:watch": "esw src --watch",
     "fix": "npm run lint:watch -- --fix",
     "dev:unix": "export NODE_ENV=development && npm run build:unix && npm run start:unix",
+    "test:unix": "echo 'Tests will come later'",
     "prod": "export NODE_ENV=production && npm run build:unix && npm run start:unix"
   },
   "repository": {
