@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+ - "stable"
+cache:
+ directories:
+  - node_modules
+services:
+ - mongodb
+install:
+ - npm install
+before_script:
+ - cp .env.sample .env
+script:
+ - npm run test:unix # Since Travis runs on a unix environment, it would run the test script meant for unix environments
+after_success:
+ - echo "Test complete" # Would be replaced with script to run code coverage
+# A deploy stage would be set once we have set up with Heroku
