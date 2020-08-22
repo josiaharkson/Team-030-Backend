@@ -8,11 +8,11 @@ const passport = require("passport");
 
 
 // Load Input Validation
-const validateRegisterInput = require("../../validation/register");
-const validateLoginInput = require("../../validation/login");
+const validateRegisterInput = require("../../validation/farmerRegister");
+const validateLoginInput = require("../../validation/farmerLogin");
 
-// Load User model
-const User = require("../../models/User");
+// Load UserFarmer model
+const UserFarmer = require("../../models/UserFarmer");
 
 // @route   GET api/users/test
 // @desc    Tests users route
@@ -22,7 +22,7 @@ router.get("/test", (req, res) => res.json({ msg: "Welcome to Agro-Mart!" }));
 // @route   POST api/users/register
 // @desc    Register user
 // @access  Public
-router.post("/register", (req, res) => {
+router.post("/registerfarmer", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
   // Check Validation
@@ -30,9 +30,9 @@ router.post("/register", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  User.findOne({ email: req.body.email }).then(user => {
+  UserFarmer.findOne({ email: req.body.email }).then(user => {
     if (user) {
-      errors.email = "Email already exists";
+      errors.email = "Farmer email already exists";
       return res.status(400).json(errors);
     } else {
       const avatar = gravatar.url(req.body.email, {
@@ -41,7 +41,7 @@ router.post("/register", (req, res) => {
         d: "mm" // Default
       });
 
-      const newUser = new User({
+      const newUser = new UserFarmer({
         name: req.body.name,
         email: req.body.email,
         avatar,
@@ -65,7 +65,7 @@ router.post("/register", (req, res) => {
 // @route   GET api/users/login
 // @desc    Login User / Returning JWT Token
 // @access  Public
-router.post("/login", (req, res) => {
+router.post("/loginfarmer", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
   // Check Validation
@@ -77,10 +77,10 @@ router.post("/login", (req, res) => {
   const password = req.body.password;
 
   // Find user by email
-  User.findOne({ email }).then(user => {
+  UserFarmer.findOne({ email }).then(user => {
     // Check for user
     if (!user) {
-      errors.email = "User not found";
+      errors.email = "Farmer with this email not found";
       return res.status(404).json(errors);
     }
 

@@ -10,7 +10,7 @@ let app = express();
 const port = parseInt(process.env.PORT || "3000", 10);
 
 
-const users = require("./routes/api/users");
+const users = require("./routes/api/usersFarmer");
 app.use(logger("dev"));
 
 //Body parser middleware
