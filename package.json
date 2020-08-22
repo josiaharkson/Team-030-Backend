@@ -7,8 +7,13 @@
     "start": "npm-run-all --parallel start:windows lint:watch",
     "start:windows": "set DEBUG=worker & babel-node src/index.js",
     "start:unix": "DEBUG=worker babel-node src/index",
+    "clean:unix": "rm -rf build",
+    "build": "babel src -d build",
+    "build:unix": "npm run clean:unix && npm run build",
     "lint:watch": "esw src --watch",
-    "fix": "npm run lint:watch -- --fix"
+    "fix": "npm run lint:watch -- --fix",
+    "dev:unix": "export NODE_ENV=development && npm run build:unix && npm run start:unix",
+    "prod": "export NODE_ENV=production && npm run build:unix && npm run start:unix"
   },
   "repository": {
     "type": "git",
@@ -22,6 +27,7 @@
   },
   "homepage": "https://github.com/BuildForSDGCohort2/Team-030-Backend#readme",
   "dependencies": {
+    "@babel/runtime": "^7.11.2",
     "chalk": "^4.1.0",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
