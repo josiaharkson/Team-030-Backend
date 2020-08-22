@@ -1,8 +1,8 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 
 dotenv.config();
 
-export default class Environment {
+export class Environment {
  static JWT_SECRET = process.env.JWT_SECRET;
 
  static DB = {

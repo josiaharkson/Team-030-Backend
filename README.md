@@ -9,8 +9,8 @@
 -  Create a branch off the **develop** branch and do not push directly to it (the **develop** branch)
 -  Always raise a PR against the **develop** branch and during each PR, please include comments or descriptions. A template is given below:
 
-<!-- > **ABOUT PR**IST -->
-
+> **ABOUT PR**
+>
 > This PR gives users the ability to register as farmers or as customers/consumers.
 >
 > **RELEVANT FILES**
@@ -23,7 +23,7 @@
 
 #### Coding conventions
 
- *||* _We would deliberate on this as a team_
+ _We would deliberate on this as a team_
 
 ```js
 console.log("Let's work magic together. Wave your wands buddies and may the force be with us.");
