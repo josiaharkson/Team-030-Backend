@@ -22,6 +22,7 @@
   "quotes": ["error", "double"],
   "nonblock-statement-body-position": "off",
   "curly": "off",
-  "arrow-body-style": "off"
+  "arrow-body-style": "off",
+  "indent": ["error", 1]
  }
 }

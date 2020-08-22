@@ -29,6 +29,7 @@
   "homepage": "https://github.com/BuildForSDGCohort2/Team-030-Backend#readme",
   "dependencies": {
     "@babel/runtime": "^7.11.2",
+    "bcryptjs": "^2.4.3",
     "chalk": "^4.1.0",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
