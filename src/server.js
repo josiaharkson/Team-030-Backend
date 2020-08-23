@@ -11,6 +11,10 @@ const port = parseInt(process.env.PORT || "3000", 10);
 
 
 const users = require("./routes/api/usersFarmer");
+const profile = require("./routes/api/profileFarmer");
+const posts = require("./routes/api/farmerPosts");
+
+
 app.use(logger("dev"));
 
 //Body parser middleware
@@ -34,6 +38,9 @@ require("./config/passport")(passport);
 
 //Use Routes
 app.use("/api/users", users);
+app.use("/api/profile", profile);
+app.use("/api/posts", posts);
+
 
 
 app.listen(port, () => {
