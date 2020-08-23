@@ -23,6 +23,14 @@ export class AuthModel {
    password: {
     type: String,
     required: true
+   },
+   userType: {
+    type: String,
+    match: /(cons|ret|farm|inv|who|trans)/g
+   },
+   hasFilledInfo: {
+    type: Boolean,
+    default: false
    }
   });
 
