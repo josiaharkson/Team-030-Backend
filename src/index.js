@@ -18,15 +18,18 @@ app.get("/", (req, res) => {
 app.listen(port, async () => {
  log(chalk.green(`Server running on port ${port}`));
 
- // Connect to MongoDB
- const m = await mongoose.connect(Environment.DB[process.env.NODE_ENV], {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true
- });
-
- if (m)
-  log(chalk.yellow("Connected to MongoDB"));
+ try {
+  // Connect to MongoDB
+  const m = await mongoose.connect(Environment.DB[process.env.NODE_ENV], {
+   useNewUrlParser: true,
+   useCreateIndex: true,
+   useUnifiedTopology: true
+  });
+  if (m)
+   log(chalk.yellow("Connected to MongoDB"));
+ } catch (err) {
+  log(chalk.redBright("Error connecting to db"));
+ }
 });
 
 export default app;

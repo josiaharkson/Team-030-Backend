@@ -1,20 +1,18 @@
 {
-  "name": "Team-030-Backend",
+  "name": "team-030-backend",
   "version": "1.0.0",
   "description": "[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e20c185539ad4701a0c579f933436d37)](https://app.codacy.com/gh/BuildForSDGCohort2/Team-030-Backend?utm_source=github.com&utm_medium=referral&utm_content=BuildForSDGCohort2/Team-030-Backend&utm_campaign=Badge_Grade_Settings)",
   "main": "index.js",
   "scripts": {
-    "start": "npm-run-all --parallel start:windows lint:watch",
-    "start:windows": "set DEBUG=worker & babel-node src/index.js",
-    "start:unix": "DEBUG=worker babel-node src/index",
-    "clean:unix": "rm -rf build",
+    "start": "npm-run-all --parallel start:debug lint:watch",
+    "start:debug": "cross-env DEBUG=worker NODE_ENV=development babel-node src/index.js",
+    "clean": "rimraf build",
     "build": "babel src -d build",
-    "build:unix": "npm run clean:unix && npm run build",
+    "start:build": "npm-run-all clean build",
     "lint:watch": "esw src --watch",
     "fix": "npm run lint:watch -- --fix",
-    "dev:unix": "export NODE_ENV=development && npm run build:unix && npm run start:unix",
-    "test:unix": "echo 'Tests will come later'",
-    "prod": "export NODE_ENV=production && npm run build:unix && npm run start:unix"
+    "start:dev": "cross-env NODE_ENV=development npm-run-all start:build start:debug",
+    "start:prod": "cross-env NODE_ENV=production npm-run-all start:build start:debug"
   },
   "repository": {
     "type": "git",
@@ -50,6 +48,7 @@
     "@types/express": "^4.17.7",
     "babel-eslint": "^10.1.0",
     "chai": "^4.2.0",
+    "cross-env": "^7.0.2",
     "eslint": "^7.7.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
@@ -57,6 +56,7 @@
     "mocha": "^8.1.1",
     "nodemon": "^2.0.4",
     "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
     "supertest": "^4.0.2"
   }
 }
