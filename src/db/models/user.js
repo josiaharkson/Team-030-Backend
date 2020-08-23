@@ -60,4 +60,10 @@ export class AuthModel {
    this.model.find()
   );
  }
+
+ findByIdAndUpdate(_id, update) {
+  return Promise.resolve(
+   this.model.findByIdAndUpdate(_id, update)
+  );
+ }
 }

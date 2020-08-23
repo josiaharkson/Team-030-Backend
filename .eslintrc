@@ -23,6 +23,7 @@
   "nonblock-statement-body-position": "off",
   "curly": "off",
   "arrow-body-style": "off",
-  "indent": ["error", 1]
+  "indent": ["error", 1],
+  "no-underscore-dangle": "off"
  }
 }
