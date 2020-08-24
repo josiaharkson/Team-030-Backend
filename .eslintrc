@@ -21,6 +21,9 @@
   "import/prefer-default-export": "off",
   "quotes": ["error", "double"],
   "nonblock-statement-body-position": "off",
-  "curly": "off"
+  "curly": "off",
+  "arrow-body-style": "off",
+  "indent": ["error", 1],
+  "no-underscore-dangle": "off"
  }
 }
