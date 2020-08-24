@@ -80,7 +80,7 @@ router.post("/loginfarmer", (req, res) => {
   UserFarmer.findOne({ email }).then(user => {
     // Check for user
     if (!user) {
-      errors.email = "Farmer with this email not found";
+      errors.email = "Farmer with this email is not found";
       return res.status(404).json(errors);
     }
 
