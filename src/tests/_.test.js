@@ -62,5 +62,16 @@ describe("ALL TESTS", () => {
      done(err);
     });
   });
+  it("should update user details", (done) => {
+   request(app)
+    .patch(ROOT + "/user/update")
+    .set("Authorization", `Bearer ${tokens.user1}`)
+    .send({ password: "thisistestpasswordnumber2" })
+    .end((err, res) => {
+     log(chalk.bgRedBright(chalk.yellowBright(JSON.stringify(res.body, null, 2))));
+     expect(res.status).to.be.eql(200);
+     done(err);
+    });
+  });
  });
 });

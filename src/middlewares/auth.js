@@ -46,7 +46,8 @@ export const hasToken = async (req, res, next) => {
   next();
  } catch (error) {
   res.status(error.c || 500).json({
-   statusCode: error.c || 500
+   statusCode: error.c || 500,
+   response: error.message
   });
  }
 };

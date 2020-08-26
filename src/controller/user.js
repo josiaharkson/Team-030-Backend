@@ -14,8 +14,9 @@ export class UserController {
     email: user.email,
     fullName: `${user.firstName} ${user.lastName}`,
     id: user._id,
+    role: user.userType,
     token: JWT.sign({
-     ...user,
+     ...user.toJSON(),
      sessionId: uuid()
     })
    };
@@ -53,7 +54,7 @@ export class UserController {
     fullName: `${user.firstName} ${user.lastName}`,
     role: user.userType,
     token: JWT.sign({
-     ...user,
+     ...user.toJSON(),
      sessionId: uuid()
     })
    };
@@ -79,16 +80,63 @@ export class UserController {
    // Get payload from modified request
    const { payload } = req;
 
+   // Filtered payload
+   const filteredPayload = {
+    id: payload._id,
+    email: payload.email,
+    role: payload.userType,
+    fullName: `${payload.firstName} ${payload.lastName}`
+   };
+
    // Send response
    res.status(200).json({
     statusCode: 200,
     response: {
-     ...payload
+     ...filteredPayload
     }
    });
   } catch (error) {
    res.status(500).json({
     statusCode: 500,
+    response: error.message
+   });
+  }
+ }
+
+ static async updateUserDetails(req, res) {
+  try {
+   // Payload from request
+   const { payload } = req;
+
+   // Hash password if field is present in request body
+   if (req.body.password)
+    req.body.password = Encrypt.hashPw(req.body.password);
+
+   // Find by id and update
+   const user = await User.findByIdAndUpdate(payload._id, req.body);
+
+   // Throw error if user is not found
+   if (!user)
+    throw new ErrorResponse(404, "User with id not found");
+
+   // console.log(user.toJSON());
+
+   // API response
+   const response = {
+    id: user._id,
+    email: user.email,
+    fullName: `${user.firstName} ${user.lastName}`,
+    role: user.userType
+   };
+
+   // Send response
+   res.status(200).json({
+    statusCode: 200,
+    response
+   });
+  } catch (error) {
+   res.status(error.c || 500).json({
+    statusCode: error.c || 500,
     response: error.message
    });
   }
