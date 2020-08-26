@@ -1,6 +1,6 @@
-branches:
- only:
-  - team-030-heroku-deploy
+# branches:
+#  only:
+#   - team-030-heroku-deploy
 language: node_js
 node_js:
  - "stable"
@@ -14,7 +14,7 @@ install:
 before_script:
  - cp .env.sample .env
 script:
- - npm run test:unix # Since Travis runs on a unix environment, it would run the test script meant for unix environments
+ - npm run test:debug
 after_success:
  - echo "Test complete" # Would be replaced with script to run code coverage
 deploy:
@@ -23,6 +23,6 @@ deploy:
  api_key:
   secure: "------"
  app:
-  - # app name would go here
+  - agromart-api
  on:
   - team-030-heroku-deploy

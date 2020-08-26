@@ -18,7 +18,8 @@ export class AuthModel {
    },
    email: {
     type: String,
-    required: true
+    required: true,
+    unique: true
    },
    password: {
     type: String,
@@ -71,7 +72,7 @@ export class AuthModel {
 
  findByIdAndUpdate(_id, update) {
   return Promise.resolve(
-   this.model.findByIdAndUpdate(_id, update)
+   this.model.findByIdAndUpdate(_id, update, { new: true })
   );
  }
 }

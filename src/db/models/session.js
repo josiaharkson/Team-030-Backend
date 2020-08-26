@@ -19,8 +19,8 @@ export class SessionModel {
  }
 
  // Check if session is invalid in which case user has to sign another token
- isInvalid(sessionId) {
-  const m = this.model.findOne({ sessionId });
+ async isInvalid(sessionId) {
+  const m = await this.model.findOne({ sessionId });
   return Promise.resolve(!!m);
  }
 }
