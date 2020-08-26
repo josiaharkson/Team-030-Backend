@@ -52,5 +52,15 @@ describe("ALL TESTS", () => {
      done(err);
     });
   });
+  it("should get authenticated user", (done) => {
+   request(app)
+    .get(ROOT + "/user/authenticated")
+    .set("Authorization", `Bearer ${tokens.user1}`)
+    .end((err, res) => {
+     log(chalk.bgMagentaBright(chalk.whiteBright(JSON.stringify(res.body, null, 2))));
+     expect(res.status).to.be.eql(200);
+     done(err);
+    });
+  });
  });
 });
