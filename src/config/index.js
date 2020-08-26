@@ -1,6 +1,7 @@
 import express from "express";
 import logger from "morgan";
 import { cors } from "../middlewares";
+import router from "../routes";
 
 export default (app) => {
  app.use(express.json());
@@ -9,5 +10,6 @@ export default (app) => {
  }));
  app.use(logger("dev"));
  app.use(cors("*"));
+ app.use("/api", router);
  return app;
 };

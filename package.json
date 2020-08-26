@@ -4,15 +4,17 @@
   "description": "[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e20c185539ad4701a0c579f933436d37)](https://app.codacy.com/gh/BuildForSDGCohort2/Team-030-Backend?utm_source=github.com&utm_medium=referral&utm_content=BuildForSDGCohort2/Team-030-Backend&utm_campaign=Badge_Grade_Settings)",
   "main": "index.js",
   "scripts": {
+    "test": "mocha src/tests/*.test.js --require @babel/polyfill --require @babel/register -R spec --timeout 60000 --exit",
     "start": "npm-run-all --parallel start:debug lint:watch",
-    "start:debug": "cross-env DEBUG=worker NODE_ENV=development babel-node src/index.js",
+    "start:debug": "cross-env DEBUG=worker NODE_ENV=development nodemon --exec babel-node src/index.js",
     "clean": "rimraf build",
     "build": "babel src -d build",
     "start:build": "npm-run-all clean build",
     "lint:watch": "esw src --watch",
     "fix": "npm run lint:watch -- --fix",
     "start:dev": "cross-env NODE_ENV=development npm-run-all start:build start:debug",
-    "start:prod": "cross-env NODE_ENV=production npm-run-all start:build start:debug"
+    "start:prod": "cross-env NODE_ENV=production npm-run-all start:build start:debug",
+    "test:debug": "cross-env NODE_ENV=test DEBUG=test npm test"
   },
   "repository": {
     "type": "git",

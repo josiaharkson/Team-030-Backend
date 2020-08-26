@@ -24,6 +24,8 @@
   "curly": "off",
   "arrow-body-style": "off",
   "indent": ["error", 1],
-  "no-underscore-dangle": "off"
+  "no-underscore-dangle": "off",
+  "import/named": "off",
+  "prefer-template": "off"
  }
 }
