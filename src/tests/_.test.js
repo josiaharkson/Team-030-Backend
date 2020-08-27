@@ -23,7 +23,7 @@ describe("ALL TESTS", () => {
     lastName: "Paulus",
     password: "thisistestpassword",
     email: "s_paulus@agromart.com",
-    userType: "ret"
+    userType: "farm"
    };
 
    request(app)
@@ -70,6 +70,19 @@ describe("ALL TESTS", () => {
     .end((err, res) => {
      log(chalk.bgRedBright(chalk.yellowBright(JSON.stringify(res.body, null, 2))));
      expect(res.status).to.be.eql(200);
+     done(err);
+    });
+  });
+ });
+ describe("FARM TESTS", () => {
+  it("should add farm to the database", (done) => {
+   request(app)
+    .post(ROOT + "/farm/add")
+    .set("Authorization", `Bearer ${tokens.user1}`)
+    .send({ name: "Almundia farms", latitude: 0, longitude: 3 })
+    .end((err, res) => {
+     log(chalk.bgBlackBright(chalk.greenBright(JSON.stringify(res.body, null, 2))));
+     expect(res.status).to.be.eql(201);
      done(err);
     });
   });
