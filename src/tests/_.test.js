@@ -7,6 +7,7 @@ import app from "..";
 
 const ROOT = "/api";
 const tokens = {};
+let singleFarmId = "";
 
 const log = debug("test");
 
@@ -81,8 +82,49 @@ describe("ALL TESTS", () => {
     .set("Authorization", `Bearer ${tokens.user1}`)
     .send({ name: "Almundia farms", latitude: 0, longitude: 3 })
     .end((err, res) => {
+     singleFarmId = res.body.response._id;
      log(chalk.bgBlackBright(chalk.greenBright(JSON.stringify(res.body, null, 2))));
      expect(res.status).to.be.eql(201);
+     done(err);
+    });
+  });
+  it("should get farm by its id", (done) => {
+   request(app)
+    .get(ROOT + "/farm/get/" + singleFarmId)
+    .end((err, res) => {
+     log(chalk.bgWhiteBright(chalk.redBright(JSON.stringify(res.body, null, 2))));
+     expect(res.status).to.be.eql(200);
+     done(err);
+    });
+  });
+  // eslint-disable-next-line max-len
+  // This is to test and affirm that only users with a farmer's privilege can access specific endpoints
+  it("should register a user with a role other than a farmer's", (done) => {
+   const requestBody = {
+    firstName: "Bernoulli",
+    lastName: "Schwartz",
+    email: "bschwartz@agromart.com",
+    password: "bernoullischwartz",
+    userType: "inv"
+   };
+
+   request(app)
+    .post(ROOT + "/user/register")
+    .send(requestBody)
+    .end((err, res) => {
+     tokens.user2 = res.body.response.token;
+     expect(res.status).to.be.eql(201);
+     done(err);
+    });
+  });
+  it("should respond with a 400 if user with a different role tries to add a farm", (done) => {
+   request(app)
+    .post(ROOT + "/farm/add")
+    .set("Authorization", `Bearer ${tokens.user2}`)
+    .send({ name: "McStanley Tomato Farm", latitude: 0, longitude: 0 })
+    .end((err, res) => {
+     log(chalk.bgBlue(chalk.gray(JSON.stringify(res.body, null, 2))));
+     expect(res.status).to.be.eql(400);
      done(err);
     });
   });

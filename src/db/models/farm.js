@@ -53,9 +53,17 @@ export class FarmModel {
   );
  }
 
+ findAllFarms() {
+  return Promise.resolve(
+   this.model.find({})
+  );
+ }
+
  updateFarmDetails(id, body) {
   return Promise.resolve(
-   this.model.findByIdAndUpdate(id, body)
+   this.model.findByIdAndUpdate(id, body, {
+    new: true
+   })
   );
  }
 
