@@ -128,5 +128,34 @@ describe("ALL TESTS", () => {
      done(err);
     });
   });
+  it("should update a farm by its id", (done) => {
+   request(app)
+    .patch(ROOT + "/farm/update/" + singleFarmId)
+    .set("Authorization", `Bearer ${tokens.user1}`)
+    .send({ name: "Calgary Farm" })
+    .end((err, res) => {
+     log(chalk.bgRedBright(chalk.blueBright(JSON.stringify(res.body, null, 2))));
+     expect(res.status).to.be.eql(200);
+     done(err);
+    });
+  });
+  it("should get all farms", (done) => {
+   request(app)
+    .get(ROOT + "/farm/all")
+    .end((err, res) => {
+     log(chalk.bgGray(chalk.whiteBright(JSON.stringify(res.body, null, 2))));
+     expect(res.status).to.be.eql(200);
+     done(err);
+    });
+  });
+  it("should get all farms with paging and limiting applied", (done) => {
+   request(app)
+    .get(ROOT + "/farm/all?page=1&limit=1")
+    .end((err, res) => {
+     log(chalk.bgBlack(chalk.blueBright(JSON.stringify(res.body, null, 2))));
+     expect(res.status).to.be.eql(200);
+     done(err);
+    });
+  });
  });
 });

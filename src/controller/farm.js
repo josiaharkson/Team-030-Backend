@@ -148,9 +148,11 @@ export class FarmController {
    // Get all farms by user
    const farms = await Farm.findByUserId(payload._id);
 
+   // console.log(farms.map((f) => f._id));
+
    // Get id
    const id = farms.map((f) => f._id)
-    .find((_id) => _id === req.params.id);
+    .find((_id) => _id.toString() === req.params.id);
 
    // Update farm detail
    const updatedFarm = await Farm.updateFarmDetails(id, req.body);
@@ -172,6 +174,73 @@ export class FarmController {
   } catch (error) {
    res.status(error.c || 500).json({
     statusCode: error.c || 500,
+    response: error.message
+   });
+  }
+ }
+
+ static async deleteSingleFarm(req, res) {
+  try {
+   // Get payload from request
+   const { payload } = req;
+
+   // Get all farms
+   const farms = await Farm.findByUserId(payload._id);
+
+   // Map farms to their ids and get id of farm to be deleted
+   const id = farms.map((farm) => farm._id)
+    .find((_id) => _id.toString() === req.params.id);
+
+   // Delete farm and return result
+   const farm = await Farm.delete(id);
+
+   // Throw error if farm is not found
+   if (!farm)
+    throw new ErrorResponse(404, `Farm with id ${id} not found`);
+
+   // API response
+   const response = {
+    ...farm.toJSON()
+   };
+
+   // Send response
+   res.status(200).json({
+    statusCode: 200,
+    response
+   });
+  } catch (error) {
+   res.status(error.c || 500).json({
+    statusCode: error.c || 500,
+    response: error.message
+   });
+  }
+ }
+
+ static async deleteAllFarmsByUser(req, res) {
+  try {
+   // Get payload from request
+   const { payload } = req;
+
+   // Get all farms owned by user
+   const farms = await Farm.findByUserId(payload._id);
+
+   // Delete all farms and return them
+   const delFarms = farms.map((farm) => Farm.delete(farm._id));
+
+   // Promise
+   const promise = await Promise.all(delFarms);
+
+   // API response
+   const response = promise.map((farm) => farm.toJSON());
+
+   // Send response
+   res.status(200).json({
+    statusCode: 200,
+    response
+   });
+  } catch (error) {
+   res.status(500).json({
+    statusCode: 500,
     response: error.message
    });
   }

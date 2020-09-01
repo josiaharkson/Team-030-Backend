@@ -43,7 +43,9 @@ export class ProductModel {
 
  updateProduct(id, body) {
   return Promise.resolve(
-   this.model.findByIdAndUpdate(id, body)
+   this.model.findByIdAndUpdate(id, body, {
+    new: true
+   })
   );
  }
 

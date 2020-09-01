@@ -69,7 +69,7 @@ export class FarmModel {
 
  delete(_id) {
   return Promise.resolve(
-   this.model.deleteOne({ _id })
+   this.model.findByIdAndDelete(_id)
   );
  }
 }

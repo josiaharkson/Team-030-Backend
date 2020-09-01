@@ -85,7 +85,8 @@ export class UserController {
     id: payload._id,
     email: payload.email,
     role: payload.userType,
-    fullName: `${payload.firstName} ${payload.lastName}`
+    fullName: `${payload.firstName} ${payload.lastName}`,
+    sessionId: payload.sessionId
    };
 
    // Send response
