@@ -1,5 +1,5 @@
 import { v4 as uuid } from "uuid";
-import { User } from "../db";
+import { User, Session } from "../db";
 import { JWT, Encrypt } from "../helpers";
 import { ErrorResponse } from "../custom";
 
@@ -85,7 +85,8 @@ export class UserController {
     id: payload._id,
     email: payload.email,
     role: payload.userType,
-    fullName: `${payload.firstName} ${payload.lastName}`
+    fullName: `${payload.firstName} ${payload.lastName}`,
+    sessionId: payload.sessionId
    };
 
    // Send response
@@ -137,6 +138,37 @@ export class UserController {
   } catch (error) {
    res.status(error.c || 500).json({
     statusCode: error.c || 500,
+    response: error.message
+   });
+  }
+ }
+
+ static async logUserOut(req, res) {
+  try {
+   // Get payload from request
+   const { payload } = req;
+
+   // Invalidate session
+   const session = await Session.invalidate(payload.sessionId);
+
+   // Session as json
+   const sessionJson = session.toJSON();
+
+   // API response
+   const response = {
+    sessionId: sessionJson.sessionId,
+    objectId: sessionJson._id,
+    message: `Successfully signed out user with email: ${payload.email}`
+   };
+
+   // Send response
+   res.status(200).json({
+    statusCode: 200,
+    response
+   });
+  } catch (error) {
+   res.status(500).json({
+    statusCode: 500,
     response: error.message
    });
   }

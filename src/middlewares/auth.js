@@ -61,7 +61,8 @@ export const hasRole = (role) => {
     who: "Wholesaler",
     trans: "Transporter",
     cons: "Consumer",
-    inv: "Investor"
+    inv: "Investor",
+    farm: "Farmer"
    };
 
    // Get payload from request
