@@ -26,6 +26,7 @@
   "indent": ["error", 1],
   "no-underscore-dangle": "off",
   "import/named": "off",
-  "prefer-template": "off"
+  "prefer-template": "off",
+  "no-restricted-syntax": "off"
  }
 }

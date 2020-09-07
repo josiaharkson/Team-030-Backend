@@ -12,19 +12,10 @@ export class ProductModel {
     type: String,
     required: true
    },
-   quantity: {
-    type: Number,
-    required: true,
-    default: 0
-   },
    farmId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Farm",
     required: true
-   },
-   sold: {
-    type: Number,
-    default: 0
    }
   }));
  }

@@ -1,6 +1,6 @@
 import { TokenExpiredError } from "jsonwebtoken";
-import { Session } from "../db";
-import { JWT } from "../helpers";
+import { Session, User } from "../db";
+import { JWT, Keys } from "../helpers";
 import { ErrorResponse } from "../custom";
 
 export const hasToken = async (req, res, next) => {
@@ -72,6 +72,42 @@ export const hasRole = (role) => {
    if (payload.userType !== role)
     throw new ErrorResponse(400, `Only users with role "${roles[role]}" can access this resource`);
 
+   next();
+  } catch (error) {
+   res.status(error.c || 500).json({
+    statusCode: error.c || 500,
+    response: error.message
+   });
+  }
+ };
+};
+
+export const checkIfEmailInUse = async (req, res, next) => {
+ try {
+  // Find user by email
+  const user = await User.findByEmail(req.body.email);
+
+  // Check if user is already registered. Throw error in that case.
+  if (user)
+   throw new ErrorResponse(400, `User with email ${req.body.email} already registered`);
+  next();
+ } catch (error) {
+  res.status(error.c || 500).json({
+   statusCode: error.c || 500,
+   response: error.message
+  });
+ }
+};
+
+export const checkIfkeysPresent = (keys) => {
+ return (req, res, next) => {
+  try {
+   // Check if keys are present or null
+   const present = Keys.arePresent(req.body, keys);
+
+   // Throw error if not present
+   if (!present)
+    throw new ErrorResponse(400, "Required key (s) not present in request body");
    next();
   } catch (error) {
    res.status(error.c || 500).json({
