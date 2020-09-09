@@ -27,6 +27,7 @@
   "no-underscore-dangle": "off",
   "import/named": "off",
   "prefer-template": "off",
-  "no-restricted-syntax": "off"
+  "no-restricted-syntax": "off",
+  "linebreak-style": "off"
  }
 }

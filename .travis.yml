@@ -18,11 +18,10 @@ script:
 after_success:
  - echo "Test complete" # Would be replaced with script to run code coverage
 deploy:
- provider:
-  - heroku
+ provider: "heroku"
  api_key:
   secure: "------"
- app:
-  - agromart-api
+ app: "agromart-api"
  on:
-  - team-030-heroku-deploy
+  branch: 
+    team-030-heroku-deploy

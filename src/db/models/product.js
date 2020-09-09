@@ -12,7 +12,7 @@ export class ProductModel {
     type: String,
     required: true
    },
-   farmId: {
+   farm: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Farm",
     required: true
@@ -26,9 +26,15 @@ export class ProductModel {
   );
  }
 
- findByFarmerId(farmId) {
+ findById(_id) {
   return Promise.resolve(
-   this.model.find({ farmId })
+   this.model.findById(_id)
+  );
+ }
+
+ findByFarmId(farm) {
+  return Promise.resolve(
+   this.model.find({ farm })
   );
  }
 
