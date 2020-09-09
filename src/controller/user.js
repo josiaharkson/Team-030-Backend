@@ -122,12 +122,23 @@ export class UserController {
 
    // console.log(user.toJSON());
 
+   // Invalidate former session
+   const formerSession = (await Session.invalidate(payload.sessionId)).toJSON();
+
+   // Generate new session token
+   const token = JWT.sign({
+    ...user.toJSON(),
+    sessionId: uuid()
+   });
+
    // API response
    const response = {
     id: user._id,
     email: user.email,
     fullName: `${user.firstName} ${user.lastName}`,
-    role: user.userType
+    role: user.userType,
+    token,
+    formerSession
    };
 
    // Send response

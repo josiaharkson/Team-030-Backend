@@ -7,8 +7,7 @@ export class Environment {
 
  static DB = {
   development: process.env.MONGO_URI,
-  // eslint-disable-next-line max-len
-  production: process.env.MONGO_URI, // The Heroku ObjectRocket's MongoDB add-on provide this variable at runtime
+  production: process.env.MONGO_URI,
   test: process.env.MONGO_TEST_URI
  };
 }
