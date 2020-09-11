@@ -28,10 +28,6 @@ export class AuthModel {
    userType: {
     type: String,
     match: /(cons|ret|farm|inv|who|trans)/g
-   },
-   hasFilledInfo: {
-    type: Boolean,
-    default: false
    }
   });
 
