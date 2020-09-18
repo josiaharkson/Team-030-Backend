@@ -15,13 +15,13 @@ export class ProductController {
 
    // Create record
    const r = await ProductStat.addRecord({
-    productId: p._id,
+    product: p._id,
     quantity: body.quantity || 1,
     sold: body.sold || 0
    });
 
    // Get relationship
-   const rPopulated = await r.execPopulate();
+   const rPopulated = await r.populate("product").execPopulate();
 
    // API response
    const response = {

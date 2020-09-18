@@ -1,8 +1,8 @@
 import { TokenExpiredError } from "jsonwebtoken";
+import Joi from "@hapi/joi";
 import { Session, User } from "../db";
 import { JWT, Keys } from "../helpers";
 import { ErrorResponse } from "../custom";
-import Joi from "@hapi/joi";
 
 export const hasToken = async (req, res, next) => {
  try {
@@ -120,59 +120,61 @@ export const checkIfkeysPresent = (keys) => {
 };
 
 export const ValidateRegisterBody = async (req, res, next) => {
-  try {
-    const requestBodySchema = Joi.object({
-      firstName: Joi.string().min(3).max(20).required(),
-      lastName: Joi.string().min(3).max(20).required(),
-      email: Joi.string()
-        .email({
-          minDomainSegments: 2,
-          tlds: { allow: ["com", "net", "org"] },
-        })
-        .required(),
-      password: Joi.string().alphanum().min(7).max(30).required(),
-      userType: Joi.string().valid(
-        "cons",
-        "ret",
-        "farm",
-        "inv",
-        "who",
-        "trans"
-      ),
-    });
+ try {
+  const requestBodySchema = Joi.object({
+   firstName: Joi.string().min(3).max(20).required(),
+   lastName: Joi.string().min(3).max(20).required(),
+   email: Joi.string()
+    .email({
+     minDomainSegments: 2,
+     tlds: { allow: ["com", "net", "org"] },
+    })
+    .required(),
+   password: Joi.string().alphanum().min(7).max(30)
+    .required(),
+   userType: Joi.string().valid(
+    "cons",
+    "ret",
+    "farm",
+    "inv",
+    "who",
+    "trans"
+   ).required(),
+  });
 
-    const { error, value } = requestBodySchema.validate({ ...req.body });
+  const { error } = requestBodySchema.validate({ ...req.body });
 
-    let msg = "";
+  let msg = "";
 
-    // Check if error was found duruing validtion
-    if (error) {
-      msg = error.details[0].message
-        .replace('"', "")
-        .replace('"', "")
-        .replace("firstName", "First name")
-        .replace("lastName", "Last name")
-        .replace("email", "Email")
-        .replace("password", "Password");
+  // Check if error was found duruing validtion
+  if (error) {
+   msg = error.details[0].message
+    .replace("\"", "")
+    .replace("\"", "")
+    .replace("firstName", "First name")
+    .replace("lastName", "Last name")
+    .replace("email", "Email")
+    .replace("password", "Password")
+    .replace("userType", "User type");
 
-      throw new ErrorResponse(400, msg);
-    }
-
-    // Check For Email Repeat
-    const emailCheck = await User.findByEmail(req.body.email.toLowerCase());
-
-    if (emailCheck) {
-      msg = `User with email ${req.body.email.toLowerCase()} already registered`;
-      throw new ErrorResponse(400, msg);
-    }
-
-    req.body.email = req.body.email.toLowerCase();
-
-    next();
-  } catch (error) {
-    res.status(error.c || 500).json({
-      statusCode: error.c || 500,
-      response: error.message,
-    });
+   throw new ErrorResponse(400, msg);
   }
+
+  // Check For Email Repeat
+  const emailCheck = await User.findByEmail(req.body.email.toLowerCase());
+
+  if (emailCheck) {
+   msg = `User with email ${req.body.email.toLowerCase()} already registered`;
+   throw new ErrorResponse(400, msg);
+  }
+
+  req.body.email = req.body.email.toLowerCase();
+
+  next();
+ } catch (error) {
+  res.status(error.c || 500).json({
+   statusCode: error.c || 500,
+   response: error.message,
+  });
+ }
 };
