@@ -12,6 +12,7 @@ router.post(
  ProductController.addProduct
 );
 
+router.get("/getall", ProductController.getAllProducts);
 router.get("/:farmId", ProductController.getProducts);
 router.get("/single/:id", ProductController.getProduct);
 router.get("/stats/:id", ProductController.getProductStat);
