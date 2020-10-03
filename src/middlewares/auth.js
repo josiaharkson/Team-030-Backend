@@ -140,10 +140,10 @@ export const ValidateRegisterBody = async (req, res, next) => {
     "inv",
     "who",
     "trans"
-   ),
+   ).required(),
   });
 
-  const { error, value } = requestBodySchema.validate({ ...req.body });
+  const { error } = requestBodySchema.validate({ ...req.body });
 
   let msg = "";
 
@@ -155,7 +155,8 @@ export const ValidateRegisterBody = async (req, res, next) => {
     .replace("firstName", "First name")
     .replace("lastName", "Last name")
     .replace("email", "Email")
-    .replace("password", "Password");
+    .replace("password", "Password")
+    .replace("userType", "User type");
 
    throw new ErrorResponse(400, msg);
   }
