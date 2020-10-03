@@ -7,7 +7,7 @@ export class Environment {
 
  static DB = {
   development: process.env.MONGO_URI,
-  production: process.env.MONGO_URI,
+  production: process.env.PROD_MONGO_URI,
   test: process.env.MONGO_TEST_URI
  };
 }

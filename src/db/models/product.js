@@ -25,7 +25,7 @@ export class ProductModel {
    this.model.create(body)
   );
  }
- 
+
  findAllProducts() {
   return Promise.resolve(this.model.find({}));
  }

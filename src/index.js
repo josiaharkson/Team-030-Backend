@@ -29,6 +29,7 @@ app.listen(port, async () => {
    log(chalk.yellow("Connected to MongoDB"));
  } catch (err) {
   log(chalk.redBright("Error connecting to db"));
+  log(err);
  }
 });
 

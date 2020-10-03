@@ -6,8 +6,8 @@ const router = Router();
 
 router.post(
  "/register",
-//  Auth.checkIfkeysPresent(["email", "password", "firstName", "lastName"]),
-//  Auth.checkIfEmailInUse,
+ //  Auth.checkIfkeysPresent(["email", "password", "firstName", "lastName"]),
+ //  Auth.checkIfEmailInUse,
  Auth.ValidateRegisterBody,
  UserController.register
 );
