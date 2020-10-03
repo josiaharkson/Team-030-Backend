@@ -13,7 +13,7 @@
     "lint:watch": "esw src --watch",
     "fix": "npm run lint:watch -- --fix",
     "start:dev": "cross-env NODE_ENV=development npm-run-all start:build start:debug",
-    "start:prod": "cross-env NODE_ENV=production npm-run-all start:build start:debug lint:watch",
+    "start_prod": "cross-env NODE_ENV=production npm-run-all start:build start:debug lint:watch",
     "test:debug": "cross-env NODE_ENV=test DEBUG=test npm test"
   },
   "repository": {
