@@ -8,7 +8,6 @@ router.post(
  "/add/:farmId",
  Auth.hasToken,
  Auth.hasRole("farm"),
- Farm.getFarm,
  ProductController.addProduct
 );
 
