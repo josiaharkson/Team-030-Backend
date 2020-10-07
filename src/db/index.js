@@ -1,5 +1,9 @@
 import {
- AuthModel, SessionModel, ProductModel, FarmModel, ProductStatsModel
+ AuthModel,
+ SessionModel,
+ ProductModel,
+ FarmModel,
+ ProductStatsModel,
 } from "./models";
 
 export const User = new AuthModel();

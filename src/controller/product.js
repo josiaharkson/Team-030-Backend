@@ -1,17 +1,36 @@
-import { Product, ProductStat } from "../db";
+import { Product, ProductStat, Farm } from "../db";
 import { ErrorResponse } from "../custom";
 
 export class ProductController {
  static async addProduct(req, res) {
   try {
-   // Get body and farm from request object
-   const { body, farm } = req;
+   // Parse the data recieved from the request multipart/form-data
+   const body = { ...JSON.parse(req.body.data) };
+
+   // Get Single farms by farm ID
+   const farmCheck = await Farm.findById(body.farm);
+
+   // Throw error if farm is not found
+   if (!farmCheck)
+    throw new ErrorResponse(404, "Farm with given id not found");
+
+   let pic;
+
+   // Retrieve Image file from request
+   const file = req.files?.image;
+
+   if (file) {
+    // If an image file has been uploaded
+    pic = { data: file.data, contentType: file.mimetype };
+   }
 
    // Create product
    const p = await Product.create({
     name: body.name,
-    farm: farm._id,
+    farm: body.farm,
+    pic,
    });
+
    // Create record
    const r = await ProductStat.addRecord({
     product: p._id,
