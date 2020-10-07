@@ -12,7 +12,7 @@ services:
 install:
  - npm install
 before_script:
- - cp .env.sample .env
+ - cp .env.sample
 script:
  - npm run test:debug
 after_success:
