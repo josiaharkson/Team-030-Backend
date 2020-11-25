@@ -12,10 +12,12 @@ const log = debug("worker");
 
 app = config(app);
 
-app.use(express.static("client/build"));
+app.use(express.static("client"));
 app.get("*", (request, response) => {
-  response.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  response.sendFile(path.resolve(__dirname, "client", "index.html"));
 });
+
+
 
 app.listen(port, async () => {
   log(chalk.green(`Server running on port ${port}`));
