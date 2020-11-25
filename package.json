@@ -14,7 +14,8 @@
     "fix": "npm run lint:watch -- --fix",
     "start:dev": "cross-env NODE_ENV=development npm-run-all start:build start:debug",
     "start_prod": "cross-env NODE_ENV=production npm-run-all start:build start:debug lint:watch",
-    "test:debug": "cross-env NODE_ENV=test DEBUG=test npm test"
+    "test:debug": "cross-env NODE_ENV=test DEBUG=test npm test",
+    "heroku-postbuild": "npm run start_prod --prefix client && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
